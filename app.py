@@ -22,5 +22,20 @@ def add():
 
     return jsonify({"result": result}), 200
 
+@app.route("/subtract", methods=["POST"])
+def subtract():
+    data = request.get_json()
+    a = data.get("a")
+    b = data.get("b")
+
+    if a is None or b is None:
+        return jsonify({"error": "Missing input"}), 400
+
+    try:
+        result = float(a) - float(b)
+    except ValueError:
+        return jsonify({"error": "Invalid Input"}), 400
+    return jsonify({"result": result}), 200
+
 if __name__ == "__main__":
     app.run(debug=True)
